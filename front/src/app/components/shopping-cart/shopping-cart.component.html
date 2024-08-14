@@ -1,0 +1,8 @@
+<div class="wrapper">
+  <header class="header">Your Shopping Cart</header>
+  <app-product-item
+    *ngFor="let product of getCart()"
+    [product]="product"
+  ></app-product-item>
+  <div class="container">Total Price: {{ getTotalCart() | price }}</div>
+</div>

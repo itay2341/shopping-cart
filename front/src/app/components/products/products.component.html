@@ -1,0 +1,18 @@
+<div class="gap-1 wrapper">
+  
+  <!-- Products Section -->
+  <div class="row wrap gap-1 space-between products">
+    <app-product
+      *ngFor="let product of getProducts()"
+      [product]="product"
+    ></app-product>
+  </div>
+
+  <!-- Add to Cart Section -->
+  <div class="container">
+    <button (click)="addToCart()" class="btn">Add to Cart</button>
+    <div class="price full-center">
+      Price that will be added to the cart: {{ getTotal() | price }}
+    </div>
+  </div>
+</div>

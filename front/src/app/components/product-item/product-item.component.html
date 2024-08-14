@@ -1,0 +1,5 @@
+<div class="wrapper">
+  <p>{{ product.name | name : 20 : "..." }}, ({{ product.amount }})</p>
+  <button class="btn" (click)="removeProduct(product.id)">-</button>
+  <hr />
+</div>
