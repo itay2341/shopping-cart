@@ -1,12 +1,11 @@
 <div class="wrapper">
   <p>{{ product.name | name : 20 : "..." }}, ({{ product.amount }})</p>
-  <!-- <button class="btn" (click)="removeProduct(product.id)">-</button> -->
   <button
-  type="button"
-  pButton
-  label="-"
-  class="p-button-danger btn"
-  (click)="removeProduct(product.id)"
-></button>
+    type="button"
+    pButton
+    label="-"
+    class="p-button-danger btn"
+    (click)="removeProduct(product.id)"
+  ></button>
   <hr />
 </div>
