@@ -38,40 +38,6 @@ export class ProductsComponent {
           console.log(error);
         },
       });
-    // if (localStorage.getItem('savedProducts')) {
-    //   const data = JSON.parse(localStorage.getItem('savedProducts') || '');
-    //   this.productsStore.products = data;
-    //   if (localStorage.getItem('savedCart')) {
-    //     const cart = JSON.parse(localStorage.getItem('savedCart') || '');
-    //     this.productsStore.cart = cart;
-    //   }
-    //   else {
-    //     this.productsStore.cart = data.map((product: Product) => {
-    //       return { ...product, amount: 0 };
-    //     });
-    //   }
-    //   return;
-    // }
-    // else {
-    //   this.productsService
-    //   .getProducts('http://localhost:3000/products')
-    //   .subscribe({
-    //     next: (data: Product[]) => {
-    //       data = data.map((product) => {
-    //         return { ...product, amount: 0 };
-    //       });
-    //       this.productsStore.products = data;
-    //       this.productsStore.cart = data;
-    //     },
-    //     error: (error) => {
-    //       console.log(error);
-    //     },
-    //   });
-    //   if (localStorage.getItem('savedCart')) {
-    //     const cart = JSON.parse(localStorage.getItem('savedCart') || '');
-    //     this.productsStore.cart = cart;
-    //   }
-    // }
   }
 
   getProducts() {
