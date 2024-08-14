@@ -2,7 +2,7 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/itay2341/shopping-cart.git
 ```
 
 ### 2. Backend Setup
@@ -23,7 +23,7 @@ node server.js
 Navigate to the client directory and install the necessary dependencies:
     
 ```bash
-cd client
+cd front
 npm install
 ```
 
