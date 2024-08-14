@@ -1,11 +1,8 @@
-
-
-<!-- <p-card> -->
   <div class="gap-1 wrapper">
 
     <!-- Product Details -->
     <img [src]="product.image" [alt]="product.name" />
-    <h2 class="title">{{ product.name | name : 15 : "..." }}</h2>
+    <h2 [pTooltip]="product.name.length > 15 ? product.name : undefined" tooltipPosition="left" class="title">{{ product.name | name : 15 : "..." }}</h2>
     <div class="row gap-05">
       <span class="price-label">Price:</span>
       <span class="price">{{ product.price | price }}</span>
@@ -32,6 +29,3 @@
       </div>
     </div>
   </div>
-
-<!-- </p-card> -->
-

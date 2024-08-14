@@ -4,5 +4,9 @@
     *ngFor="let product of getCart()"
     [product]="product"
   ></app-product-item>
-  <div class="container">Total Price: {{ getTotalCart() | price }}</div>
+  <div class="container full-center">Total Price:
+    <div class="price">
+      {{ getTotalCart() | price }}
+    </div>
+  </div>
 </div>

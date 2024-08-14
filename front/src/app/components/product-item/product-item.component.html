@@ -1,5 +1,9 @@
 <div class="wrapper">
-  <p>{{ product.name | name : 20 : "..." }}, ({{ product.amount }})</p>
+  <div [pTooltip]="product.name" tooltipPosition="left">
+    {{ product.amount }} {{ product.name | name : 11 : "..." }} ({{
+      product.amount * product.price
+    }}$)
+  </div>
   <button
     type="button"
     pButton
