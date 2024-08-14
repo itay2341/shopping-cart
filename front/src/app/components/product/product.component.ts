@@ -4,11 +4,12 @@ import { PricePipe } from '../../pipes/price.pipe';
 import { NamePipe } from '../../pipes/name.pipe';
 import { ButtonModule } from 'primeng/button';
 import { ProductsStore } from '../../store/products.store';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [PricePipe, NamePipe, ButtonModule],
+  imports: [PricePipe, NamePipe, ButtonModule, CardModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })

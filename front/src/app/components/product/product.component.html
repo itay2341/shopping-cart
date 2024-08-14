@@ -1,31 +1,37 @@
-<div class="gap-1 wrapper">
 
-  <!-- Product Details -->
-  <img [src]="product.image" alt="Product Image" />
-  <h2 class="title">{{ product.name | name : 15 : "..." }}</h2>
-  <div class="row gap-05">
-    <span class="price-label">Price:</span>
-    <span class="price">{{ product.price | price }}</span>
-  </div>
 
-  <!-- Add/Remove Product -->
-  <div class="gap-05 buttons">
-    <button
-      class="btn"
-      type="button"
-      pButton
-      label="+"
-      (click)="addProduct(product.id)"
-    ></button>
-    <button
-      type="button"
-      pButton
-      label="-"
-      class="p-button-danger btn"
-      (click)="removeProduct(product.id)"
-    ></button>
-    <div class="amount">
-      {{ product.amount }}
+<p-card>
+  <div class="gap-1 wrapper">
+
+    <!-- Product Details -->
+    <img [src]="product.image" [alt]="product.name" />
+    <h2 class="title">{{ product.name | name : 15 : "..." }}</h2>
+    <div class="row gap-05">
+      <span class="price-label">Price:</span>
+      <span class="price">{{ product.price | price }}</span>
+    </div>
+  
+    <!-- Add/Remove Product -->
+    <div class="gap-05 buttons">
+      <button
+        class="btn"
+        type="button"
+        pButton
+        label="+"
+        (click)="addProduct(product.id)"
+      ></button>
+      <button
+        type="button"
+        pButton
+        label="-"
+        class="p-button-danger btn"
+        (click)="removeProduct(product.id)"
+      ></button>
+      <div class="amount">
+        {{ product.amount }}
+      </div>
     </div>
   </div>
-</div>
+
+</p-card>
+
