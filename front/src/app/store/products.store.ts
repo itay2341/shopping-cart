@@ -1,77 +1,68 @@
 import { Injectable } from '@angular/core';
-import { observable, autorun, computed, action, makeObservable } from 'mobx';
-import { Product } from '../../types';
+import { observable, computed, action } from 'mobx';
+import { CartItems, ProductItems, CartItemDisplay } from '../../types';
+import { ProductsService } from '../services/products.service';
 
 @Injectable()
 export class ProductsStore {
-  constructor() {
-    makeObservable(this);
-    if (localStorage['savedProducts']) {
-      this.products = JSON.parse(localStorage['savedProducts']);
+  constructor(private productsService: ProductsService) {
+    this.productsService
+    .getProducts('http://localhost:3000/products')
+    .subscribe({
+      next: (data: ProductItems) => {
+        this.productsShop = data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  @observable productsShop: ProductItems = {};
+  @observable cartItems: CartItems = {totalPriceInCart: 0};
+
+  @computed get productsIds() {
+    return Object.keys(this.productsShop);
+  }
+
+  @computed get itemsInCartToDisplay() {
+    const cartItemsDisplay: CartItemDisplay[] = [];
+    for (const id in this.cartItems) {
+      const product = this.productsShop[id];
+      if (product) {
+        cartItemsDisplay.push({
+          id,
+          name: product.name,
+          price: product.price,
+          count: this.cartItems[id],
+        });
+      }
     }
-    if (localStorage['savedCart']) {
-      this.cart = JSON.parse(localStorage['savedCart']);
+    return cartItemsDisplay;
+  }
+
+  @action addToCart(productId: string, count: number) {
+    if (count < 1) {
+      console.error('Trying to add less than 1 product to cart');
+      return;
     }
-    autorun(() => {
-      localStorage['savedProducts'] = JSON.stringify(this.products);
-      localStorage['savedCart'] = JSON.stringify(this.cart);
-    });
-  }
-
-  @observable products: Product[] = [];
-  @observable cart: Product[] = [];
-
-  @computed get totalTemp() {
-    return this.products.map((product) => product.amount * product.price).reduce((a, b) => a + b, 0);
-  }
-  @computed get totalCart() {
-    return this.cart.map((product) => product.amount * product.price).reduce((a, b) => a + b, 0);
-  }
-
-  @action increment(id: number) {
-    this.products = this.products.map((product) => {
-      if (product.id === id) {
-        return { ...product, amount: product.amount ? product.amount + 1 : 1 };
-      }
-      return product;
-    });
-  }
-  
-  @action decrement(id: number) {
-    this.products = this.products.map((product) => {
-      if (product.id === id) {
-        return { ...product, amount: product.amount ? product.amount - 1 : 0 };
-      }
-      return product;
-    });
-  }
-
-  @action addToCart() {
-    let addedProducts = this.products.filter((product) => product.amount > 0);
-    for (let i = 0; i < addedProducts.length; i++) {
-      let product = addedProducts[i];
-      this.cart = this.cart.map((selectedProduct) => {
-        if (selectedProduct.id === product.id) {
-          return { ...selectedProduct, amount: selectedProduct.amount + product.amount };
-        }
-        return selectedProduct;
-      });
+    if (this.cartItems[productId]) {
+      this.cartItems[productId] += count;
+    } else {
+      this.cartItems[productId] = count;
     }
-
-    this.products = this.products.map((product) => {
-      if (product.amount > 0) {
-        return { ...product, amount: 0 };
-      }
-      return product;
-    });
+    this.cartItems.totalPriceInCart += this.productsShop[productId].price * count;
   }
 
-  @action removeFromCart(id: number) {
-    this.cart = this.cart.map((product) => {
-      if (product.id === id) {
-        return { ...product, amount: product.amount - 1 };
-      }
-      return product;
-    });
+  @action removeFromCart(productId: string) {
+    if (!this.cartItems[productId]) {
+      console.error('Trying to remove product that is not in cart');
+      return;
+    }
+    this.cartItems[productId] -= 1;
+    this.cartItems.totalPriceInCart -= this.productsShop[productId].price;
+    if (this.cartItems[productId] < 1) {
+      delete this.cartItems[productId];
+    }
   }
 }

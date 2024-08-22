@@ -1,7 +1,21 @@
-export interface Product {
-    id: number;
-    price: number;
+export interface ProductDetail {
     name: string;
     image: string;
-    amount: number;
-}
+    price: number;
+};
+
+export type ProductItems = {
+    [id: string]: ProductDetail;
+};
+
+export interface CartItems {
+    [id: string]: number;
+    totalPriceInCart: number;
+};
+
+export interface CartItemDisplay {
+    id: string;
+    name: string;
+    price: number;
+    count: number;
+};

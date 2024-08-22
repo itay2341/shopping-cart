@@ -12,13 +12,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './shopping-cart.component.scss'
 })
 export class ShoppingCartComponent {
-constructor(private productsStore: ProductsStore) {}
-
-  getTotalCart() {
-    return this.productsStore.totalCart;
-  }
-
-  getCart() {
-    return this.productsStore.cart.filter(product =>  product.amount > 0);
-  }
+constructor(public productsStore: ProductsStore) {}
 }

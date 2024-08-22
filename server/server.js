@@ -15,14 +15,21 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/products", (req, res) => {
-
+  let jsonData = {};
   fs.readFile("db.json", "utf8", (err, data) => {
     if (err) {
       console.log(err);
       res.status(500).send("Internal Server Error");
       return;
     }
-    const jsonData = JSON.parse(data);
+    try {
+      jsonData = JSON.parse(data);
+    }
+    catch (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
     res.status(200).json(jsonData);
   });
 });

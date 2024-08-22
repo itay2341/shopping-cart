@@ -1,15 +1,15 @@
 <div class="wrapper">
   <div [pTooltip]="product.name" tooltipPosition="left">
-    {{ product.amount }} {{ product.name | name : 11 : "..." }} ({{
-      product.amount * product.price
-    }}$)
+    {{ product.count }} {{ product.name | name : 11 : "..." }} ({{
+      product.count * product.price | price
+    }})
   </div>
   <button
     type="button"
     pButton
     label="-"
     class="p-button-danger btn"
-    (click)="removeProduct(product.id)"
+    (click)="this.productsStore.removeFromCart(product.id)"
   ></button>
   <hr />
 </div>

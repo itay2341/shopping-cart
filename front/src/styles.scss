@@ -1,5 +1,6 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 :root {
   --border-color: rgb(199, 39, 39);
@@ -54,3 +55,25 @@ app-root {
   align-items: center;
   justify-content: center;
 }
+
+/* Clear styles for input field */
+.p-inputtext,
+.p-inputnumber-input,
+.p-filled {
+  width: 60px;
+  height: 20px;
+  text-align: center;
+}
+
+/* Clear styles for buttons */
+.p-inputnumber-button,
+.p-inputnumber-button-up,
+.p-button-icon-only,
+.p-button-secondary {
+height: 20px;
+width: 40px;
+margin: 0;
+}
+
+
+

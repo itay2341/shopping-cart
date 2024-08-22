@@ -1,31 +1,30 @@
-  <div class="gap-1 wrapper">
-
-    <!-- Product Details -->
-    <img [src]="product.image" [alt]="product.name" />
-    <h2 [pTooltip]="product.name.length > 15 ? product.name : undefined" tooltipPosition="left" class="title">{{ product.name | name : 15 : "..." }}</h2>
-    <div class="row gap-05">
-      <span class="price-label">Price:</span>
-      <span class="price">{{ product.price | price }}</span>
-    </div>
-  
-    <!-- Add/Remove Product -->
-    <div class="gap-05 buttons">
-      <button
-        class="btn"
-        type="button"
-        pButton
-        label="+"
-        (click)="addProduct(product.id)"
-      ></button>
-      <button
-        type="button"
-        pButton
-        label="-"
-        class="p-button-danger btn"
-        (click)="removeProduct(product.id)"
-      ></button>
-      <div class="amount">
-        {{ product.amount }}
-      </div>
-    </div>
+<div class="gap-1 wrapper">
+  <img [src]="product.image" [alt]="product.name" />
+  <h2
+    [pTooltip]="product.name.length > 15 ? product.name : undefined"
+    tooltipPosition="left"
+    class="title"
+  >
+    {{ product.name | name : 16 : "..." }}
+  </h2>
+  <div class="row gap-05">
+    <span class="price-label">Price:</span>
+    <span class="price">{{ product.price | price }}</span>
   </div>
+  <div class="full-center flex input-number">
+    <p-inputNumber
+      [(ngModel)]="count"
+      [showButtons]="true"
+      [min]="0"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      decrementButtonClass="p-button-secondary"
+      incrementButtonClass="p-button-secondary"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+    />
+  </div>
+  <div class="full-center flex">
+    <button class="btn" (click)="addToCart()">Add To Cart</button>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductsStore } from '../../store/products.store';
 
 @Component({
   selector: 'app-footer',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-
+  constructor(public productsStore: ProductsStore) {}
 }

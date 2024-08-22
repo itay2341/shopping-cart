@@ -1,18 +1,9 @@
 <div class="gap-1 wrapper">
-  
-  <!-- Products Section -->
   <div class="row wrap gap-1 products">
     <app-product
-      *ngFor="let product of getProducts()"
-      [product]="product"
+      *ngFor="let productId of this.productsStore.productsIds"
+      [productId]="productId"
+      [product]="this.productsStore.productsShop[productId]"
     ></app-product>
-  </div>
-
-  <!-- Add to Cart Section -->
-  <div class="container">
-    <button (click)="addToCart()" class="btn">Add to Cart</button>
-    <div class="price full-center">
-      Price that will be added to the cart: {{ getTotal() | price }}
-    </div>
   </div>
 </div>
