@@ -1,12 +1,12 @@
 <div class="wrapper">
   <header class="header">Your Shopping Cart</header>
   <app-product-item
-    *ngFor="let product of this.productsStore.itemsInCartToDisplay"
+    *ngFor="let product of this.productsStore.cartToDisplay.cartItemsDisplay"
     [product]="product"
   ></app-product-item>
   <div class="container full-center">Total Price:
     <div class="price">
-      {{ this.productsStore.cartItems.totalPriceInCart| price }}
+      {{ this.productsStore.cartToDisplay.totalPrice| price }}
     </div>
   </div>
 </div>

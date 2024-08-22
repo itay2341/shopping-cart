@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ProductComponent } from '../product/product.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, KeyValuePipe } from '@angular/common';
 import { ProductsStore } from '../../store/products.store';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductComponent, CommonModule],
+  imports: [ProductComponent, CommonModule, KeyValuePipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })

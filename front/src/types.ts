@@ -10,7 +10,6 @@ export type ProductItems = {
 
 export interface CartItems {
     [id: string]: number;
-    totalPriceInCart: number;
 };
 
 export interface CartItemDisplay {

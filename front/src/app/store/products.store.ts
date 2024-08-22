@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { observable, computed, action } from 'mobx';
 import { CartItems, ProductItems, CartItemDisplay } from '../../types';
 import { ProductsService } from '../services/products.service';
+import { environment } from '../../environments/environment';
+
 
 @Injectable()
 export class ProductsStore {
   constructor(private productsService: ProductsService) {
     this.productsService
-    .getProducts('http://localhost:3000/products')
+    .getProducts(environment.apiUrl + '/products')
     .subscribe({
       next: (data: ProductItems) => {
-        this.productsShop = data;
+        this.productItems = data;
       },
       error: (error) => {
         console.log(error);
@@ -18,17 +20,18 @@ export class ProductsStore {
     });
   }
 
-  @observable productsShop: ProductItems = {};
-  @observable cartItems: CartItems = {totalPriceInCart: 0};
+  @observable productItems: ProductItems = {};
+  @observable cartItems: CartItems = {};
 
-  @computed get productsIds() {
-    return Object.keys(this.productsShop);
+  @computed get totalProductItems() {
+    return Object.keys(this.productItems).length;
   }
 
-  @computed get itemsInCartToDisplay() {
+  @computed get cartToDisplay() {
     const cartItemsDisplay: CartItemDisplay[] = [];
+    let totalPrice = 0;
     for (const id in this.cartItems) {
-      const product = this.productsShop[id];
+      const product = this.productItems[id];
       if (product) {
         cartItemsDisplay.push({
           id,
@@ -36,9 +39,10 @@ export class ProductsStore {
           price: product.price,
           count: this.cartItems[id],
         });
+        totalPrice += product.price * this.cartItems[id];
       }
     }
-    return cartItemsDisplay;
+    return {cartItemsDisplay, totalPrice};
   }
 
   @action addToCart(productId: string, count: number) {
@@ -51,7 +55,6 @@ export class ProductsStore {
     } else {
       this.cartItems[productId] = count;
     }
-    this.cartItems.totalPriceInCart += this.productsShop[productId].price * count;
   }
 
   @action removeFromCart(productId: string) {
@@ -60,7 +63,6 @@ export class ProductsStore {
       return;
     }
     this.cartItems[productId] -= 1;
-    this.cartItems.totalPriceInCart -= this.productsShop[productId].price;
     if (this.cartItems[productId] < 1) {
       delete this.cartItems[productId];
     }
