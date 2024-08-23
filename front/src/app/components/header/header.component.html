@@ -1,4 +1,16 @@
 <header class="wrapper row full-center">
-    <img src="assets/logo.png" alt="Logo image" class="logo" />
+  <img src="assets/logo.png" alt="Logo image" class="logo" />
+  <p-button
+    (onClick)="cartVisible = true"
+    icon="pi pi-shopping-cart"
+    class="cartButton"
+    label="Cart"
+    severity="danger"
+    [badge]="
+      this.productStore.cartToDisplay.totalDistinnctProductsInCart.toString()
+    "
+  />
+  <p-sidebar [(visible)]="cartVisible" position="right">
+    <app-shopping-cart />
+  </p-sidebar>
 </header>
-  

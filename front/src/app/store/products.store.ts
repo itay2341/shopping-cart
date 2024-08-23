@@ -30,6 +30,7 @@ export class ProductsStore {
   @computed get cartToDisplay() {
     const cartItemsDisplay: CartItemDisplay[] = [];
     let totalPrice = 0;
+    let totalDistinnctProductsInCart = 0;
     for (const id in this.cartItems) {
       const product = this.productItems[id];
       if (product) {
@@ -40,9 +41,10 @@ export class ProductsStore {
           count: this.cartItems[id],
         });
         totalPrice += product.price * this.cartItems[id];
+        totalDistinnctProductsInCart += 1;
       }
     }
-    return {cartItemsDisplay, totalPrice};
+    return {cartItemsDisplay, totalPrice, totalDistinnctProductsInCart};
   }
 
   @action addToCart(productId: string, count: number) {
@@ -58,6 +60,7 @@ export class ProductsStore {
   }
 
   @action removeFromCart(productId: string) {
+    console.log('Removing product from cart');
     if (!this.cartItems[productId]) {
       console.error('Trying to remove product that is not in cart');
       return;
@@ -66,5 +69,9 @@ export class ProductsStore {
     if (this.cartItems[productId] < 1) {
       delete this.cartItems[productId];
     }
+  }
+
+  @action clearCart() {
+    this.cartItems = {};
   }
 }

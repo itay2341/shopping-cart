@@ -1,9 +1,0 @@
-<div class="gap-1 wrapper">
-  <div class="row wrap gap-1 products">
-    <app-product
-      *ngFor="let item of this.productsStore.productItems | keyvalue"
-      [productId]="item.key"
-      [product]="item.value"
-    ></app-product>
-  </div>
-</div>
