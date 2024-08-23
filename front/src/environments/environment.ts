@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://shoppingcartbuilded.onrender.com'
+    apiUrl: 'https://shoppingcartbuildednewdesign.onrender.com'
 };
