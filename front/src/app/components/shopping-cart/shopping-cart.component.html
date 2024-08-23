@@ -1,30 +1,32 @@
 <h2 class="header">Your Shopping Cart</h2>
-
-<ng-container
-  *ngFor="let product of this.productsStore.cartToDisplay.cartItemsDisplay"
->
-  <app-product-item [product]="product"/>
-</ng-container>
-
-<div *ngIf="this.productsStore.cartToDisplay.totalPrice > 0" class="container full-center">
+@for (item of productsStore.cartToDisplay.cartItemsDisplay; track item.id) {
+<app-product-item [product]="item"/>
+} @if (productsStore.cartToDisplay.totalPrice > 0) {
+<div class="container full-center">
   <span>Total Price:</span>
   <div class="price">
-    {{ this.productsStore.cartToDisplay.totalPrice | price }}
+    {{ productsStore.cartToDisplay.totalPrice | price }}
   </div>
 </div>
-
-<div *ngIf="this.productsStore.cartToDisplay.totalPrice <= 0" class="container full-center">
-  <span>Your cart is empty</span>
-</div>
-
-<div *ngIf="this.productsStore.cartToDisplay.totalPrice > 0" class="container full-center">
+<div
+  *ngIf="productsStore.cartToDisplay.totalPrice > 0"
+  class="container full-center"
+>
   <button
     class="btn"
     type="button"
     pButton
     severity="danger"
-    (click)="this.productsStore.clearCart()"
+    (click)="productsStore.clearCart()"
   >
     Clear All
   </button>
 </div>
+} @else {
+<div
+  *ngIf="productsStore.cartToDisplay.totalPrice <= 0"
+  class="container full-center"
+>
+  <span>Your cart is empty</span>
+</div>
+}

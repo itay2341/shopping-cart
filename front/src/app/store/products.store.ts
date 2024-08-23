@@ -60,7 +60,6 @@ export class ProductsStore {
   }
 
   @action removeFromCart(productId: string) {
-    console.log('Removing product from cart');
     if (!this.cartItems[productId]) {
       console.error('Trying to remove product that is not in cart');
       return;
