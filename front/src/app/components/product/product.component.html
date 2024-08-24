@@ -1,42 +1,97 @@
 <div class="gap-1 wrapper">
   <img [src]="product.image" [alt]="product.name" />
-  <h2
+  <div
+    [id]="productId"
+    class="product-item"
+
+  >
+    <h2>{{ product.name | name }}</h2>
+    <p>{{ product.price | price }}</p>
+
+    <!-- Conditional rendering: If not editing quantity, show "Add to Cart" button -->
+     <!-- [prevent propagation -->
+      <div class="container">
+        <button
+        class="btn"
+          *ngIf="!displayQuantityDialog()"
+          pButton
+          type="button"
+          label="Add to Cart"
+          (click)="displayQuantityDialog.set(true)"
+          (click)="$event.stopPropagation()"
+          
+        ></button>
+      </div>
+   
+
+    <!-- Conditional rendering: If editing quantity, show quantity input and buttons -->
+    <div *ngIf="displayQuantityDialog()" class="quantity-input-group">
+      <div class="full-center flex input-number">
+        <p-inputNumber
+          [(ngModel)]="count"
+          [showButtons]="true"
+          [min]="0"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        />
+      </div>
+<div class="dialog-footer gap-05">
+  <!-- OK and Cancel buttons -->
+  <button
+  pButton
+  type="button"
+  icon="pi pi-check"
+  (click)="confirm($event)"
+  class="p-button-sm"
+></button>
+<button
+  pButton
+  type="button"
+  icon="pi pi-times"
+  (click)="cancelEditQuantity()"
+  class="p-button-sm p-button-secondary"
+></button>
+</div>
+    
+    </div>
+  </div>
+
+  <!-- <div class="container">
+    <h2
     [pTooltip]="product.name.length > 15 ? product.name : undefined"
     tooltipPosition="left"
     class="title"
   >
     {{ product.name | name : 16 : "..." }}
   </h2>
-  <div class="row gap-05">
+  <div class="row gap-05 mt">
     <span class="price-label">Price:</span>
     <span class="price">{{ product.price | price }}</span>
   </div>
-  <div class="full-center flex input-number">
-    <p-inputNumber
-      [(ngModel)]="count"
-      [showButtons]="true"
-      [min]="0"
-      buttonLayout="horizontal"
-      inputId="horizontal"
-      decrementButtonClass="p-button-secondary"
-      incrementButtonClass="p-button-secondary"
-      incrementButtonIcon="pi pi-plus"
-      decrementButtonIcon="pi pi-minus"
-    />
-  </div>
-  <div class="full-center flex">
+  </div> -->
+  <!-- <div class="full-center flex">
     <button class="btn" (click)="confirm($event)">Add To Cart</button>
-  </div>
+  </div> -->
+
   <p-toast />
-    <p-confirmPopup #confirmPopupRef>
-        <ng-template pTemplate="headless" let-message let-test>
-            <div class="container gap-1">
-                <span>{{ message.message }}</span>
-                <div class="gap-1">
-                    <p-button (onClick)="accept()" label="Save" size="small" />
-                    <p-button (onClick)="reject()" label="Cancel" [outlined]="true" size="small" />
-                </div>
-            </div>
-        </ng-template>
-    </p-confirmPopup>
+  <p-confirmPopup #confirmPopupRef>
+    <ng-template pTemplate="headless" let-message let-test>
+      <div class="container gap-1">
+        <span>{{ message.message }}</span>
+        <div class="gap-1">
+          <p-button (onClick)="accept()" label="Save" size="small" />
+          <p-button
+            (onClick)="reject()"
+            label="Cancel"
+            [outlined]="true"
+            size="small"
+          />
+        </div>
+      </div>
+    </ng-template>
+  </p-confirmPopup>
 </div>
