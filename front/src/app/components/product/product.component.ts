@@ -12,6 +12,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
+import { refStructEnhancer } from 'mobx/dist/internal';
 
 
 @Component({
@@ -23,17 +24,29 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product.component.scss',
 })
 export class ProductComponent {
+  @Input() product!: ProductDetail;
+  @Input() productId!: string;
+
+  displayQuantityDialog = signal(false);
+  count = 0;
+
+
   constructor(public productsStore: ProductsStore,
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               private elementRef: ElementRef,
               private renderer: Renderer2
-  ) {}
+  ) {
+    this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
+      if (event.target.id.startsWith(this.productId)) {
+        this.displayQuantityDialog.set(false);
+        this.count = 0;
+      }
+    });
+  }
 
-  @Input() product!: ProductDetail;
-  @Input() productId!: string;
-  displayQuantityDialog = signal(false);
-  count = 0;
+
+
   
   focusOut() {
     console.log('focus out');

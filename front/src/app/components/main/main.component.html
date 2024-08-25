@@ -1,5 +1,17 @@
+
+
+
+
 <div class="gap-1 wrapper">
+
   <div class="row wrap gap-1 products">
+    <p class="column startp">
+      Welcome to Vean-Food, your one-stop destination for fresh, delicious, and healthy fruits and vegetables!<br>
+      We are dedicated to bringing you the finest vean produce, handpicked for quality and taste.<br>
+      Whether you're stocking up on your everyday essentials or searching for something special, we've got you covered.<br>
+      Explore our wide range of seasonal fruits, vibrant vegetables, and more, all available at your fingertips.<br>
+      <strong>Start your journey to a healthier lifestyle with Vean-Food today!</strong>
+    </p>
     <app-product
       *ngFor="let item of this.productStore.productItems | keyvalue"
       [productId]="item.key"

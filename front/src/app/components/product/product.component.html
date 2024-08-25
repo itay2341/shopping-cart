@@ -1,31 +1,26 @@
 <div class="gap-1 wrapper">
-  <img [src]="product.image" [alt]="product.name" />
-  <div
-    [id]="productId"
-    class="product-item"
-
-  >
-    <h2>{{ product.name | name }}</h2>
-    <p>{{ product.price | price }}</p>
+  <img [src]="product.image" [alt]="product.name" [id]="productId"/>
+  <div class="product-item">
+    <h2 [id]="productId">{{ product.name | name }}</h2>
+    <p [id]="productId">{{ product.price | price }}</p>
 
     <!-- Conditional rendering: If not editing quantity, show "Add to Cart" button -->
-     <!-- [prevent propagation -->
-      <div class="container">
-        <button
+    <!-- [prevent propagation -->
+    <div class="container">
+      <button
         class="btn"
-          *ngIf="!displayQuantityDialog()"
-          pButton
-          type="button"
-          label="Add to Cart"
-          (click)="displayQuantityDialog.set(true)"
-          (click)="$event.stopPropagation()"
-          
-        ></button>
-      </div>
-   
+        *ngIf="!displayQuantityDialog()"
+        pButton
+        type="button"
+        label="Add to Cart"
+        (click)="displayQuantityDialog.set(true)"
+        (click)="$event.stopPropagation()"
+      ></button>
+    </div>
 
     <!-- Conditional rendering: If editing quantity, show quantity input and buttons -->
-    <div *ngIf="displayQuantityDialog()" class="quantity-input-group">
+    <!-- <div *ngIf="displayQuantityDialog()" class="quantity-input-group"> -->
+    <div [hidden]="!displayQuantityDialog()" class="quantity-input-group">
       <div class="full-center flex input-number">
         <p-inputNumber
           [(ngModel)]="count"
@@ -39,26 +34,27 @@
           decrementButtonIcon="pi pi-minus"
         />
       </div>
-<div class="dialog-footer gap-05">
-  <!-- OK and Cancel buttons -->
-  <button
-  pButton
-  type="button"
-  icon="pi pi-check"
-  (click)="confirm($event)"
-  class="p-button-sm"
-></button>
-<button
-  pButton
-  type="button"
-  icon="pi pi-times"
-  (click)="cancelEditQuantity()"
-  class="p-button-sm p-button-secondary"
-></button>
-</div>
-    
+      <div class="dialog-footer gap-05"> 
+        <!-- OK and Cancel buttons -->
+        <button
+          pButton
+          type="button"
+          icon="pi pi-check"
+          (click)="confirm($event)"
+          class="p-button-sm"
+        ></button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          (click)="cancelEditQuantity()"
+          class="p-button-sm p-button-secondary"
+        ></button>
+      </div>
     </div>
-  </div>
+
+
+</div>
 
   <!-- <div class="container">
     <h2
