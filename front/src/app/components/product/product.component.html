@@ -14,7 +14,6 @@
         type="button"
         label="Add to Cart"
         (click)="displayQuantityDialog.set(true)"
-        (click)="$event.stopPropagation()"
       ></button>
     </div>
 
@@ -34,7 +33,7 @@
           decrementButtonIcon="pi pi-minus"
         />
       </div>
-      <div class="dialog-footer gap-05"> 
+      <div class="dialog-footer gap-05 okbuttons"> 
         <!-- OK and Cancel buttons -->
         <button
           pButton
@@ -76,16 +75,32 @@
   <p-toast />
   <p-confirmPopup #confirmPopupRef>
     <ng-template pTemplate="headless" let-message let-test>
-      <div class="container gap-1">
-        <span>{{ message.message }}</span>
+      <div class="container gap-1 confirm">
+        <span class="msg">{{ message.message }}</span>
         <div class="gap-1">
-          <p-button (onClick)="accept()" label="Save" size="small" />
+          <!-- <p-button (onClick)="accept()" label="Add" size="small" />
           <p-button
             (onClick)="reject()"
             label="Cancel"
             [outlined]="true"
             size="small"
-          />
+          /> -->
+          <button
+            pButton
+            type="button"
+            icon="pi pi-check"
+            (click)="accept()"
+            class="p-button-sm"
+            label="Add"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            (click)="reject()"
+            class="p-button-sm p-button-secondary"
+            label="Cancel"
+          ></button>
         </div>
       </div>
     </ng-template>

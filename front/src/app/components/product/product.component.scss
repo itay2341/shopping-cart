@@ -27,15 +27,6 @@
 }
 
 
-
-.number-input {
-  justify-content: center;
-  align-items: center;
-  margin-top: 7px;
-  margin-left: 4px;
-  display: flex;
-}
-
 .btn {
   display: inline-block;
   padding: 5px;
@@ -77,7 +68,9 @@
 }
 
 .input-number {
-  margin-top: 5px;
+  // margin-top: 5px;
+  margin-top: 8px;
+
 }
 
 .container {
@@ -87,8 +80,18 @@
   justify-content: center;
 }
 
-.quantity-input {
-  margin-bottom: 1rem;
+.confirm {
+  margin: 8px;
+  width: 250px;
+
+  .msg {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  button {
+    height: 20px;
+    margin-left: 10px;
+  }
 }
 
 .dialog-footer {
@@ -132,8 +135,7 @@
     justify-content: center;
     align-items: center;
     width: 250px;
-  }
-  
+  }  
 
 }
 

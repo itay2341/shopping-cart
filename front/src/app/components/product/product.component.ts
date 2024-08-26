@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, signal, ViewChild, effect, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, signal, ViewChild, effect, Renderer2, SimpleChanges, OnChanges  } from '@angular/core';
 import { ProductDetail } from '../../../types';
 import { PricePipe } from '../../pipes/price.pipe';
 import { NamePipe } from '../../pipes/name.pipe';
@@ -12,7 +12,6 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
-import { refStructEnhancer } from 'mobx/dist/internal';
 
 
 @Component({
@@ -37,11 +36,34 @@ export class ProductComponent {
               private elementRef: ElementRef,
               private renderer: Renderer2
   ) {
+
+    let cancell: any;
+
+    effect(() => {
+      if (this.displayQuantityDialog()) {
+        cancell = setTimeout(() => {
+          this.displayQuantityDialog.set(false);
+          this.count = 0;
+        }
+        , 6000);
+      }
+    });
     this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
       if (event.target.id.startsWith(this.productId)) {
+        console.log('click outside');
         this.displayQuantityDialog.set(false);
         this.count = 0;
       }
+      else {
+        console.log('click inside');
+        clearTimeout(cancell);
+        cancell = setTimeout(() => {
+          this.displayQuantityDialog.set(false);
+          this.count = 0;
+        }, 6000);
+      }
+
+
     });
   }
 
@@ -103,6 +125,9 @@ cancelEditQuantity() {
     this.displayQuantityDialog.set(false);
     this.count = 0;
 }
+
+
+
 }
 
 
